@@ -235,7 +235,11 @@ class Message extends Message\Part
         }
 
         // If message has no parts, return content of message itself.
-        return $this->getDecodedContent($this->keepUnseen);
+        // Ported from newer version
+        if ('PLAIN' === $this->getSubtype()) {
+            return $this->getDecodedContent($this->keepUnseen);
+        }
+        return null;
     }
 
     /**
